@@ -1,4 +1,4 @@
-import { GameRepository } from "@catalog/domain/models/gameRepository";
+import { TGameRepository } from "@catalog/domain/models/TGameRepository";
 
-export const getGameById = async (repository: GameRepository, id: string) =>
+export const getGameById = async (repository: TGameRepository, id: string) =>
   await repository.getById(id);

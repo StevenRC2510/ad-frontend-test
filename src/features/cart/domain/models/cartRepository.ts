@@ -1,8 +1,8 @@
-import { CartItem } from "@cart/domain/models/cart";
+import { TCartItem } from "@cart/domain/models/cart";
 
 export type CartRepository = {
-  getCartItems(): CartItem[];
-  addItem(item: CartItem): void;
+  getCartItems(): TCartItem[];
+  addItem(item: TCartItem): void;
   removeItem(id: string): void;
   clearCart(): void;
 };

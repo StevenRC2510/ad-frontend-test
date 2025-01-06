@@ -1,7 +1,7 @@
 import { GameFilters } from "@catalog/domain/models/game";
-import { GameRepository } from "@catalog/domain/models/gameRepository";
+import { TGameRepository } from "@catalog/domain/models/TGameRepository";
 
 export const getAllGames = async (
-  repository: GameRepository,
+  repository: TGameRepository,
   filters: GameFilters
 ) => await repository.getAll(filters);

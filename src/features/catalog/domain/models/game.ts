@@ -1,4 +1,4 @@
-export type Game = {
+export type TGame = {
   id: string;
   name: string;
   genre: string;
@@ -8,7 +8,14 @@ export type Game = {
   image: string;
 };
 
-export type GameFilters = {
-  genre: string;
-  page: number;
+export type TGameFilters = {
+  genre?: string;
+  page?: number;
+};
+
+export type TGamesResponse = {
+  games: TGame[];
+  availableFilters: string[];
+  totalPages: number;
+  currentPage: number;
 };

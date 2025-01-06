@@ -1,14 +1,39 @@
-import { useCallback } from "react";
+"use client";
+import { useState, useMemo } from "react";
 
-import { cartFacade } from "@cart/infrastructure/storage/cartStorage";
+import { TCartItem } from "@cart/domain/models/cart";
+import { cartFacade } from "@cart/infrastructure/store/cartStore";
 
-import { CartItem } from "@cart/domain/models/cart";
+const useCart = () => {
+  const [items, setItems] = useState(cartFacade.getCartItems());
 
-export const useCart = () => {
-  const getItems = useCallback(() => cartFacade.getCartItems(), []);
-  const addItem = useCallback((item: CartItem) => cartFacade.addItem(item), []);
-  const removeItem = useCallback((id: string) => cartFacade.removeItem(id), []);
-  const clearCart = useCallback(() => cartFacade.clearCart(), []);
+  const total = useMemo(
+    () => items.reduce((sum, item) => sum + item.price, 0),
+    [items]
+  );
 
-  return { getItems, addItem, removeItem, clearCart };
+  const addItem = (item: TCartItem) => {
+    cartFacade.addItem(item);
+    setItems(cartFacade.getCartItems());
+  };
+
+  const removeItem = (id: string) => {
+    cartFacade.removeItem(id);
+    setItems(cartFacade.getCartItems());
+  };
+
+  const clearCart = () => {
+    cartFacade.clearCart();
+    setItems(cartFacade.getCartItems());
+  };
+
+  return {
+    items,
+    total,
+    addItem,
+    removeItem,
+    clearCart,
+  };
 };
+
+export default useCart;

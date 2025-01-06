@@ -1,36 +1,43 @@
 import appFetch from "@/shared/utils/appFetch";
-import { allGames } from "@/shared/utils/endpoint";
 
-import { Game, GameFilters } from "@catalog/domain/models/game";
+import { GET } from "@/app/api/games/route";
+import environment from "@config/environment";
+
 import { GAME_PATH } from "@catalog/infrastructure/api/constants";
+import {
+  TGame,
+  TGameFilters,
+  TGamesResponse,
+} from "@catalog/domain/models/game";
 
-const getAllGames = async (params: GameFilters): Promise<Game[]> =>
-  appFetch<Game[]>(GAME_PATH, {
+const baseURL = environment.appsUrl.games.api;
+
+const getAllGames = async (params: TGameFilters): Promise<TGamesResponse> =>
+  appFetch<TGamesResponse>(GAME_PATH, {
     params,
+    baseURL,
   });
 
-const getGameById = async (id: string): Promise<Game> =>
-  appFetch<Game>(GAME_PATH, {
+const getGameById = async (id: string): Promise<TGame> =>
+  appFetch<TGame>(GAME_PATH, {
     params: { id },
+    baseURL,
   });
 
 const getAllMockGames = async ({
   genre,
   page,
-}: GameFilters): Promise<Game[]> => {
-  const filteredGames = allGames.filter(
-    (game) => genre === "All" || game.genre === genre
-  );
+}: TGameFilters): Promise<TGamesResponse> => {
+  const url = new URL(`${baseURL}/${GAME_PATH}`);
+  if (genre) url.searchParams.append("genre", genre);
+  if (page) url.searchParams.append("page", page.toString());
 
-  const pageSize = 10;
-  const start = (page - 1) * pageSize;
-  const end = start + pageSize;
+  const request = new Request(url.toString());
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(filteredGames.slice(start, end));
-    }, 500);
-  });
+  const response = await GET(request);
+  const data = await response.json();
+
+  return data;
 };
 
 export { getAllGames, getGameById, getAllMockGames };

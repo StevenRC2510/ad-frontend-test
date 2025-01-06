@@ -1,14 +1,18 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
-import { Game, GameFilters } from "@catalog/domain/models/game";
+import {
+  TGame,
+  TGameFilters,
+  TGamesResponse,
+} from "@catalog/domain/models/game";
 import { gamesFacade } from "@catalog/infrastructure/api/facade";
 import { GamesKeysQueries } from "@catalog/infrastructure/api/constants";
 
 const useGames = (
-  params: GameFilters,
-  options?: Omit<UseQueryOptions<Game[]>, "queryKey">
+  params: TGameFilters,
+  options?: Omit<UseQueryOptions<TGamesResponse>, "queryKey">
 ) =>
-  useQuery<Game[]>({
+  useQuery<TGamesResponse>({
     queryKey: [GamesKeysQueries.GET_ALL_GAMES_QUERY_KEY, params],
     queryFn: () => gamesFacade.getAll(params),
     refetchOnWindowFocus: false,
@@ -18,9 +22,9 @@ const useGames = (
 
 const useGetGameById = (
   id: string,
-  options?: Omit<UseQueryOptions<Game | null>, "queryKey">
+  options?: Omit<UseQueryOptions<TGame | null>, "queryKey">
 ) =>
-  useQuery<Game | null>({
+  useQuery<TGame | null>({
     queryKey: [GamesKeysQueries.GET_GAME_BY_ID_QUERY_KEY, id],
     queryFn: () => gamesFacade.getById(id),
     refetchOnWindowFocus: false,

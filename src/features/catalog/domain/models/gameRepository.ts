@@ -1,6 +1,10 @@
-import { Game, GameFilters } from "@catalog/domain/models/game";
+import {
+  TGame,
+  TGameFilters,
+  TGamesResponse,
+} from "@catalog/domain/models/game";
 
-export type GameRepository = {
-  getAll({ genre, page }: GameFilters): Promise<Game[]>;
-  getById(id: Game["id"]): Promise<Game | null>;
+export type TGameRepository = {
+  getAll({ genre, page }: TGameFilters): Promise<TGamesResponse>;
+  getById(id: TGame["id"]): Promise<TGame | null>;
 };

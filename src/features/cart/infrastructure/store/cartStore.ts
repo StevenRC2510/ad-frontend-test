@@ -1,11 +1,11 @@
 import { create, StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { CartState } from "@cart/domain/models/cart";
+import { TCartState } from "@cart/domain/models/cart";
 import { CartRepository } from "@cart/domain/models/cartRepository";
 
 const cartStateCreator: StateCreator<
-  CartState,
+  TCartState,
   [["zustand/persist", unknown]]
 > = (set) => ({
   items: [],
@@ -21,7 +21,7 @@ const cartStateCreator: StateCreator<
 });
 
 const cartStore = create(
-  persist<CartState>(cartStateCreator, {
+  persist<TCartState>(cartStateCreator, {
     name: "cart-storage",
   })
 );

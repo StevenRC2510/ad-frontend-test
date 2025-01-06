@@ -1,13 +1,10 @@
-export type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-};
+import { TGame } from "@catalog/domain/models/game";
 
-export type CartState = {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
+export type TCartItem = TGame;
+
+export type TCartState = {
+  items: TCartItem[];
+  addItem: (item: TCartItem) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
 };
