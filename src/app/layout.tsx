@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import QueryProvider from "@shared/providers/queryProvider";
+
 import Header from "@shared/components/header";
 import Footer from "@shared/components/footer";
 
@@ -21,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <main className="min-h-screen flex-grow">{children}</main>
-        <Footer />
+        <QueryProvider>
+          <Header />
+          <main className="min-h-screen flex-grow bg-white">{children}</main>
+          <Footer />
+        </QueryProvider>
       </body>
     </html>
   );

@@ -9,9 +9,23 @@ import GameCard from "@catalog/presentation/ui/components/gameCard";
 
 type GameListProps = {
   games: TGame[];
+  isInCart: (id: string) => boolean;
+  onAddToCart: (game: TGame) => void;
+  onRemoveFromCart: (id: string) => void;
+  onLoadMore: () => void;
+  hasMore: boolean;
+  isLoading: boolean;
 };
 
-const GameList = ({ games }: GameListProps) => {
+const GameList = ({
+  games,
+  isInCart,
+  onAddToCart,
+  onRemoveFromCart,
+  onLoadMore,
+  hasMore,
+  isLoading,
+}: GameListProps) => {
   return (
     <div className="container px-32 py-12">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -19,18 +33,19 @@ const GameList = ({ games }: GameListProps) => {
           <GameCard
             key={game.id}
             game={game}
-            isInCart={false}
-            onAddToCart={() => null}
-            onRemoveFromCart={() => null}
-            // isInCart={isInCart(game.id)}
-            // onAddToCart={onAddToCart}
-            // onRemoveFromCart={onRemoveFromCart}
+            isInCart={isInCart(game.id)}
+            onAddToCart={onAddToCart}
+            onRemoveFromCart={onRemoveFromCart}
           />
         ))}
       </div>
-      {true && (
+      {hasMore && (
         <div className="flex justify-start mt-12">
-          <Button onClick={() => null} className="uppercase">
+          <Button
+            onClick={onLoadMore}
+            className="uppercase"
+            isLoading={isLoading}
+          >
             See More
           </Button>
         </div>

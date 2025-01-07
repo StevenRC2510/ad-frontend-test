@@ -3,8 +3,7 @@ import { Metadata } from "next";
 import { TGameFilters } from "@catalog/domain/models/game";
 import { gamesFacade } from "@catalog/infrastructure/api/facade";
 
-import GameList from "@catalog/presentation/ui/components/gameList";
-import GameFilters from "@catalog/presentation/ui/components/gameFilters";
+import CatalogPage from "@/features/catalog/presentation/ui/components/catalogPage";
 
 export const metadata: Metadata = {
   title: "Catalog",
@@ -19,12 +18,19 @@ export default async function Home({
   const genre = searchParams.genre;
   const page = searchParams.page || 1;
 
-  const gamesData = await gamesFacade.getAll({ genre, page });
+  const {
+    games = [],
+    availableFilters = [],
+    currentPage = 1,
+    totalPages = 0,
+  } = await gamesFacade.getAll({
+    genre,
+    page,
+  });
 
   return (
-    <div>
-      <GameFilters />
-      <GameList games={gamesData?.games ?? []} />
-    </div>
+    <CatalogPage
+      initialData={{ games, availableFilters, currentPage, totalPages }}
+    />
   );
 }

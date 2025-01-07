@@ -1,4 +1,8 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 
 import {
   TGame,
@@ -9,16 +13,35 @@ import { gamesFacade } from "@catalog/infrastructure/api/facade";
 import { GamesKeysQueries } from "@catalog/infrastructure/api/constants";
 
 const useGames = (
-  params: TGameFilters,
-  options?: Omit<UseQueryOptions<TGamesResponse>, "queryKey">
-) =>
-  useQuery<TGamesResponse>({
-    queryKey: [GamesKeysQueries.GET_ALL_GAMES_QUERY_KEY, params],
-    queryFn: () => gamesFacade.getAll(params),
-    refetchOnWindowFocus: false,
-    refetchIntervalInBackground: false,
-    ...options,
+  { genre, page = 1 }: TGameFilters,
+  initialData: {
+    games: TGame[];
+    availableFilters: string[];
+    currentPage: number;
+    totalPages: number;
+  }
+) => {
+  return useInfiniteQuery<TGamesResponse>({
+    queryKey: [GamesKeysQueries.GET_ALL_GAMES_QUERY_KEY, genre],
+    queryFn: () => gamesFacade.getAll({ genre, page }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.currentPage < lastPage.totalPages
+        ? lastPage.currentPage + 1
+        : undefined,
+    initialData: {
+      pages: [
+        {
+          games: initialData.games,
+          currentPage: initialData.currentPage,
+          totalPages: initialData.totalPages,
+          availableFilters: initialData.availableFilters,
+        },
+      ],
+      pageParams: [1],
+    },
   });
+};
 
 const useGetGameById = (
   id: string,

@@ -1,4 +1,6 @@
-import ShoppingCart from "./shoppingCart";
 import Logo from "./logo";
+import CloseIcon from "./close";
+import ArrowLeftIcon from "./arrowLeft";
+import ShoppingCartIcon from "./shoppingCart";
 
-export { ShoppingCart, Logo };
+export { ArrowLeftIcon, CloseIcon, Logo, ShoppingCartIcon };

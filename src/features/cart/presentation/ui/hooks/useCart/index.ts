@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 import { TCartItem } from "@cart/domain/models/cart";
 import { cartFacade } from "@cart/infrastructure/store/cartStore";
@@ -27,12 +27,18 @@ const useCart = () => {
     setItems(cartFacade.getCartItems());
   };
 
+  const isInCart = useCallback(
+    (id: string) => items.some((cartItem) => cartItem.id === id),
+    [items]
+  );
+
   return {
     items,
     total,
     addItem,
     removeItem,
     clearCart,
+    isInCart,
   };
 };
 

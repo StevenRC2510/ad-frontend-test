@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import TCartItem from "@cart/presentation/ui/components/cartItem";
+import CartItem from "@cart/presentation/ui/components/cartItem";
 
 import useCart from "@cart/presentation/ui/hooks/useCart";
 
@@ -12,7 +12,7 @@ const CartItemList = () => {
   return (
     <div className="flex flex-col gap-4">
       {items.map((item) => (
-        <TCartItem key={item.id} item={item} onRemove={removeItem} />
+        <CartItem key={item.id} item={item} onRemove={removeItem} />
       ))}
     </div>
   );

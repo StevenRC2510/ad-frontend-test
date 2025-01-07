@@ -1,30 +1,56 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
+import { ArrowLeftIcon } from "@shared/icons";
+
+import useCart from "@cart/presentation/ui/hooks/useCart";
+
 import Typography from "@shared/components/typography";
+import EmptyState from "@cart/presentation/ui/components/emptyState";
 import CartSummary from "@cart/presentation/ui/components/cartSummary";
 import CartItemList from "@cart/presentation/ui/components/cartItemList";
 
 const CartPage = () => {
+  const { items } = useCart();
+
   return (
-    <div className="px-6 py-5 lg:px-32 lg:py-10">
-      <Link href="/" className="text-grey-700 text-sm mb-4 block">
-        Back to Catalog
-      </Link>
-      <Typography variant="h1" className="text-3xl font-bold mb-2">
-        Your Cart
-      </Typography>
-      <Typography variant="p" className="text-grey-600 mb-6">
-        3 items
-      </Typography>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <CartItemList />
-        </div>
-        <div>
-          <CartSummary />
-        </div>
+    <div>
+      <div className="px-32 py-6">
+        <Link
+          href="/"
+          className="flex items-center gap-1 text-grey-500 text-base"
+        >
+          <ArrowLeftIcon width={24} height={24} />
+          Back to Catalog
+        </Link>
       </div>
+      {!items.length ? (
+        <EmptyState />
+      ) : (
+        <div className="grid px-32 py-12 gap-12">
+          <div className="grid gap-3">
+            <Typography
+              variant="h1"
+              className="text-grey-500 text-4xl font-bold"
+            >
+              Your Cart
+            </Typography>
+            <Typography variant="p" className="text-grey-500 text-2xl">
+              3 items
+            </Typography>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[678px_1fr] gap-20">
+            <div className="max-w-[678px] w-full">
+              <CartItemList />
+            </div>
+            <div>
+              <CartSummary />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

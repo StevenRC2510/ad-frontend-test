@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { ShoppingCart } from "@/shared/icons";
+import { ShoppingCartIcon } from "@/shared/icons";
 
 import Typography from "@shared/components/typography";
 
@@ -14,7 +14,7 @@ const Header = () => {
         </Typography>
       </Link>
       <Link href="/cart" className="relative">
-        <ShoppingCart height={24} width={24} />
+        <ShoppingCartIcon height={24} width={24} />
       </Link>
     </header>
   );

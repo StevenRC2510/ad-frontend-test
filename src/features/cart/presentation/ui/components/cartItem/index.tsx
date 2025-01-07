@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
+import { CloseIcon } from "@shared/icons";
 import { TCartItem } from "@cart/domain/models/cart";
 
 import Typography from "@shared/components/typography";
@@ -14,33 +15,39 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
   const { id, name, genre, description, image, price } = item;
 
   return (
-    <div className="flex items-center gap-4 border-b pb-4">
+    <div className="flex items-start gap-4 border-b-0.5 border-grey-300 px-4 py-5">
       <Image
         src={image}
         alt={name}
-        width={100}
-        height={100}
-        className="rounded"
+        width={256}
+        height={156}
+        loading="lazy"
+        className="w-64 h-40"
       />
       <div className="flex-1">
-        <Typography variant="h3" className="text-lg font-bold">
-          {name}
-        </Typography>
-        <Typography variant="p" className="text-sm text-grey-600">
-          {description}
-        </Typography>
-        <Typography variant="p" className="text-sm text-grey-500 mt-1">
-          Genre: {genre}
+        <div className="grid gap-3">
+          <Typography
+            variant="p"
+            className="text-base text-grey-200 font-bold uppercase"
+          >
+            {genre}
+          </Typography>
+          <Typography variant="h3" className="text-xl font-bold text-grey-500">
+            {name}
+          </Typography>
+          <Typography variant="p" className="text-base text-grey-200">
+            {description}
+          </Typography>
+        </div>
+        <Typography
+          variant="p"
+          className="text-xl font-bold text-end text-grey-500 mt-2"
+        >
+          ${price}
         </Typography>
       </div>
-      <Typography variant="p" className="text-lg font-bold">
-        ${price}
-      </Typography>
-      <button
-        onClick={() => onRemove(id)}
-        className="text-red-500 hover:underline"
-      >
-        &times;
+      <button onClick={() => onRemove(id)}>
+        <CloseIcon width={24} height={24} />
       </button>
     </div>
   );
