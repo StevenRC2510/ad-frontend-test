@@ -13,7 +13,7 @@ import { gamesFacade } from "@catalog/infrastructure/api/facade";
 import { GamesKeysQueries } from "@catalog/infrastructure/api/constants";
 
 const useGames = (
-  { genre, page = 1 }: TGameFilters,
+  { genre }: TGameFilters,
   initialData: {
     games: TGame[];
     availableFilters: string[];
@@ -23,7 +23,8 @@ const useGames = (
 ) => {
   return useInfiniteQuery<TGamesResponse>({
     queryKey: [GamesKeysQueries.GET_ALL_GAMES_QUERY_KEY, genre],
-    queryFn: () => gamesFacade.getAll({ genre, page }),
+    queryFn: ({ pageParam = 1 }) =>
+      gamesFacade.getAll({ genre, page: pageParam as number }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.currentPage < lastPage.totalPages

@@ -31,12 +31,14 @@ const GameFilters = ({
           id="genre"
           value={selectedGenre}
           onChange={(e) => onGenreChange(e.target.value)}
-          className="border border-none rounded text-grey-500 text-xl"
+          className="border border-none rounded text-grey-500 text-xl focus:outline-none focus:ring-0"
         >
-          <option value={undefined}>All</option>
+          <option value="">All</option>
           {genres.map((genre) => (
             <option key={genre} value={genre}>
-              {genre}
+              {`${genre.charAt(0).toUpperCase()}${genre
+                .slice(1)
+                .toLowerCase()}`}
             </option>
           ))}
         </select>

@@ -1,34 +1,44 @@
-import { create, StateCreator } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { TCartState } from "@cart/domain/models/cart";
-import { CartRepository } from "@cart/domain/models/cartRepository";
+import { TCartItem } from "@cart/domain/models/cart";
 
-const cartStateCreator: StateCreator<
-  TCartState,
-  [["zustand/persist", unknown]]
-> = (set) => ({
-  items: [],
-  addItem: (item) =>
-    set((state) => ({
-      items: [...state.items, item],
-    })),
-  removeItem: (id) =>
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== id),
-    })),
-  clearCart: () => set({ items: [] }),
-});
-
-const cartStore = create(
-  persist<TCartState>(cartStateCreator, {
-    name: "cart-storage",
-  })
-);
-
-export const cartFacade: CartRepository = {
-  getCartItems: () => cartStore.getState().items,
-  addItem: (item) => cartStore.getState().addItem(item),
-  removeItem: (id) => cartStore.getState().removeItem(id),
-  clearCart: () => cartStore.getState().clearCart(),
+type CartState = {
+  items: TCartItem[];
+  total: number;
+  addItem: (item: TCartItem) => void;
+  removeItem: (id: string) => void;
+  clearCart: () => void;
+  isInCart: (id: string) => boolean;
 };
+
+export const useCartStore = create(
+  persist<CartState>(
+    (set, get) => ({
+      items: [],
+      total: 0,
+      addItem: (item: TCartItem) =>
+        set((state) => {
+          const updatedItems = [...state.items, item];
+          return {
+            items: updatedItems,
+            total: updatedItems.reduce((sum, item) => sum + item.price, 0),
+          };
+        }),
+      removeItem: (id: string) =>
+        set((state) => {
+          const updatedItems = state.items.filter((item) => item.id !== id);
+          return {
+            items: updatedItems,
+            total: updatedItems.reduce((sum, item) => sum + item.price, 0),
+          };
+        }),
+      clearCart: () => set({ items: [], total: 0 }),
+      isInCart: (id: string) =>
+        get().items.some((cartItem) => cartItem.id === id),
+    }),
+    {
+      name: "cart-storage",
+    }
+  )
+);
