@@ -17,7 +17,7 @@ const CartPage = () => {
 
   return (
     <div>
-      <div className="px-32 py-6">
+      <div className="px-6 py-4 md:px-32 md:py-6">
         <Link
           href="/"
           className="flex items-center gap-1 text-grey-500 text-base"
@@ -29,19 +29,22 @@ const CartPage = () => {
       {!items.length ? (
         <EmptyState />
       ) : (
-        <div className="grid px-32 py-12 gap-12">
+        <div className="grid px-6 py-8 gap-8 md:px-32 md:py-12 md:gap-12">
           <div className="grid gap-3">
             <Typography
               variant="h1"
-              className="text-grey-500 text-4xl font-bold"
+              className="text-grey-500 text-2xl font-bold md:text-4xl"
             >
               Your Cart
             </Typography>
-            <Typography variant="p" className="text-grey-500 text-2xl">
+            <Typography
+              variant="p"
+              className="text-grey-500 text-xl md:text-2xl"
+            >
               3 items
             </Typography>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-[678px_1fr] gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-[678px_1fr] gap-20">
             <div className="max-w-[678px] w-full">
               <CartItemList />
             </div>

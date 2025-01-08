@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useState } from "react";
 
 import { TGame } from "@catalog/domain/models/game";
@@ -18,28 +19,36 @@ type CatalogPageProps = {
 };
 
 const CatalogPage = ({ initialData }: CatalogPageProps) => {
-  const { games, availableFilters, totalPages, currentPage } = initialData;
-  const [selectedGenre, setSelectedGenre] = useState<string | undefined>(
-    undefined
-  );
-  const { addItem, removeItem, isInCart } = useCart();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGames(
-    { genre: selectedGenre },
-    {
-      games,
-      currentPage,
-      totalPages,
-      availableFilters,
-    }
-  );
-  const allGames =
-    data?.pages.flatMap((page: { games: TGame[] }) => page.games) || [];
+  const {
+    games: initialGames,
+    availableFilters,
+    currentPage,
+    totalPages,
+  } = initialData;
+  const [selectedGenre, setSelectedGenre] = useState<string | undefined>();
+  const [isSSR, setIsSSR] = useState(true);
 
-  console.log(data, "data");
-  const handleGenreChange = useCallback(
-    (genre: string) => setSelectedGenre(genre),
-    []
-  );
+  const { addItem, removeItem, isInCart } = useCart();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+    useGames(
+      { genre: selectedGenre },
+      {
+        games: initialGames,
+        currentPage,
+        totalPages,
+        availableFilters,
+      }
+    );
+
+  const allGames =
+    data?.pages.flatMap((page: { games: TGame[] }) => page.games) ||
+    initialGames;
+
+  const handleGenreChange = useCallback((genre: string) => {
+    setSelectedGenre(genre);
+    setIsSSR(false);
+  }, []);
 
   return (
     <>
@@ -55,7 +64,8 @@ const CatalogPage = ({ initialData }: CatalogPageProps) => {
         isInCart={isInCart}
         onAddToCart={addItem}
         onRemoveFromCart={removeItem}
-        isLoading={isFetchingNextPage}
+        isLoadingCard={!isSSR && (isFetchingNextPage || isFetching)}
+        isLoadingButton={isFetchingNextPage}
       />
     </>
   );

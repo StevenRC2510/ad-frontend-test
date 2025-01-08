@@ -41,6 +41,8 @@ const useGames = (
       ],
       pageParams: [1],
     },
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
   });
 };
 

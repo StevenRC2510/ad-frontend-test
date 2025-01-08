@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="bg-grey-50 py-5 px-6 flex justify-between items-center md:px-32">
       <Link href="/">
-        <Typography variant="h1" className="text-grey-600 font-normal">
+        <Typography variant="h1" className="text-grey-600 font-bold">
           GamerShop
         </Typography>
       </Link>

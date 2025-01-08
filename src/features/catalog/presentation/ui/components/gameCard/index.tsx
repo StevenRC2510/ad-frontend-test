@@ -43,7 +43,10 @@ const GameCard = ({
         />
       </div>
       <div>
-        <Typography variant="p" className="text-grey-200 text-base uppercase">
+        <Typography
+          variant="p"
+          className="text-grey-200 text-base uppercase font-bold"
+        >
           {genre}
         </Typography>
         <div className="flex items-center justify-between gap-3">

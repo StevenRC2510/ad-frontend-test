@@ -10,7 +10,7 @@ const CartSummary = () => {
   const { items, total } = useCart();
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-12 md:gap-8">
       <div className="bg-white border-grey-300 border-0.5 rounded-2xl py-8 px-6">
         <div className="grid gap-3">
           <Typography variant="h1" className="text-2xl font-bold text-grey-500">

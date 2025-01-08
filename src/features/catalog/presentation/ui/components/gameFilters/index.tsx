@@ -14,11 +14,11 @@ const GameFilters = ({
   onGenreChange,
 }: FiltersProps) => {
   return (
-    <div className="grid gap-12 py-12 px-32 border-0.5 border-grey-100">
+    <div className="grid gap-12 py-8 px-6 border-0.5 border-grey-100 md:py-12 md:px-32">
       <Typography variant="h1" className="text-grey-500 text-4xl">
         Top Sellers
       </Typography>
-      <div className="flex items-center justify-end gap-6">
+      <div className="flex items-center gap-6 justify-start md:justify-end">
         <div className="flex items-center gap-6">
           <label htmlFor="genre" className="text-grey-500 text-xl font-bold">
             Genre
@@ -31,7 +31,7 @@ const GameFilters = ({
           id="genre"
           value={selectedGenre}
           onChange={(e) => onGenreChange(e.target.value)}
-          className="border border-none rounded text-grey-500 text-xl focus:outline-none focus:ring-0"
+          className="border border-none rounded text-grey-500 text-xl focus:outline-none focus:ring-0 w-full md:w-auto"
         >
           <option value="">All</option>
           {genres.map((genre) => (

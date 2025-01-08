@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { TGameFilters } from "@catalog/domain/models/game";
 import { gamesFacade } from "@catalog/infrastructure/api/facade";
 
-import CatalogPage from "@/features/catalog/presentation/ui/components/catalogPage";
+import CatalogPage from "@catalog/presentation/ui/components/catalogPage";
 
 export const metadata: Metadata = {
   title: "Catalog",

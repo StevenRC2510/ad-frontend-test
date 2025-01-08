@@ -15,39 +15,52 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
   const { id, name, genre, description, image, price } = item;
 
   return (
-    <div className="flex items-start gap-4 border-b-0.5 border-grey-300 px-4 py-5">
-      <Image
-        src={image}
-        alt={name}
-        width={256}
-        height={156}
-        loading="lazy"
-        className="w-64 h-40"
-      />
-      <div className="flex-1">
-        <div className="grid gap-3">
-          <Typography
-            variant="p"
-            className="text-base text-grey-200 font-bold uppercase"
-          >
-            {genre}
-          </Typography>
-          <Typography variant="h3" className="text-xl font-bold text-grey-500">
-            {name}
-          </Typography>
-          <Typography variant="p" className="text-base text-grey-200">
-            {description}
-          </Typography>
-        </div>
+    <div className="grid grid-cols-1 gap-4 border-b-0.5 border-grey-300 px-4 py-5 md:flex">
+      <div className="grid grid-cols-10 col-span-1">
+        <Image
+          src={image}
+          alt={name}
+          width={256}
+          height={156}
+          loading="lazy"
+          className="col-span-9 w-full h-40 object-cover rounded md:w-64 md:col-span-10"
+        />
+        <button
+          onClick={() => onRemove(id)}
+          className="col-span-1 flex justify-end items-start md:hidden"
+        >
+          <CloseIcon width={24} height={24} className="text-gray-600" />
+        </button>
+      </div>
+
+      <div className="flex flex-col col-span-1 gap-2">
         <Typography
           variant="p"
-          className="text-xl font-bold text-end text-grey-500 mt-2"
+          className="text-sm text-grey-200 font-bold uppercase"
+        >
+          {genre}
+        </Typography>
+        <Typography
+          variant="p"
+          className="text-lg md:text-xl font-bold text-grey-500"
+        >
+          {name}
+        </Typography>
+        <Typography variant="p" className="text-sm text-grey-200">
+          {description}
+        </Typography>
+        <Typography
+          variant="p"
+          className="text-end text-lg md:text-xl font-bold text-grey-500 mt-2 md:mt-0"
         >
           ${price}
         </Typography>
       </div>
-      <button onClick={() => onRemove(id)}>
-        <CloseIcon width={24} height={24} />
+      <button
+        onClick={() => onRemove(id)}
+        className="hidden md:flex justify-end items-start"
+      >
+        <CloseIcon width={24} height={24} className="text-gray-600" />
       </button>
     </div>
   );
