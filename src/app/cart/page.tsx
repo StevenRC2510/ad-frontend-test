@@ -10,3 +10,5 @@ export const metadata: Metadata = {
 export default async function Cart() {
   return <CartPage />;
 }
+
+export const dynamic = "force-dynamic";

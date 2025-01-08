@@ -30,7 +30,7 @@ const GameList = ({
   isLoadingCard,
 }: GameListProps) => {
   return (
-    <div className="container px-6 py-8 md:px-32 md:py-12">
+    <div className="container px-6 py-8 md:px-0 md:py-12">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-12">
         {isLoadingCard
           ? Array.from({ length: 12 }).map((_, index) => (

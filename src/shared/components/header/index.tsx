@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { ShoppingCartIcon } from "@/shared/icons";
+import { ShoppingCartIcon } from "@shared/icons";
 
 import Typography from "@shared/components/typography";
 

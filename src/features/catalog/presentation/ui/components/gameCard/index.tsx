@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { TGame } from "@catalog/domain/models/game";
 
-import { Card, Badge, Button, Typography } from "@/shared/components";
+import { Card, Badge, Button, Typography } from "@shared/components";
 
 type GameCardProps = {
   game: TGame;

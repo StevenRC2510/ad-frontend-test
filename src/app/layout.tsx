@@ -25,7 +25,9 @@ export default function RootLayout({
       <body className={archivo.className} suppressHydrationWarning>
         <QueryProvider>
           <Header />
-          <main className="min-h-screen flex-grow bg-white">{children}</main>
+          <main className="min-h-screen flex-grow bg-white md:px-32">
+            {children}
+          </main>
           <Footer />
         </QueryProvider>
       </body>

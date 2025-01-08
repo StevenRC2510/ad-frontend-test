@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography } from "@/shared/components";
+import { Typography } from "@shared/components";
 
 type FiltersProps = {
   genres: string[];
@@ -14,7 +14,7 @@ const GameFilters = ({
   onGenreChange,
 }: FiltersProps) => {
   return (
-    <div className="grid gap-12 py-8 px-6 border-0.5 border-grey-100 md:py-12 md:px-32">
+    <div className="grid gap-12 py-8 px-6 border-b-0.5 border-grey-100 md:py-12 md:px-0">
       <Typography variant="h1" className="text-grey-500 text-4xl">
         Top Sellers
       </Typography>

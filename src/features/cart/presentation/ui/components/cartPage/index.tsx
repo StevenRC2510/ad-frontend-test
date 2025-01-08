@@ -17,7 +17,7 @@ const CartPage = () => {
 
   return (
     <div>
-      <div className="px-6 py-4 md:px-32 md:py-6">
+      <div className="px-6 py-4 md:px-0 md:py-6">
         <Link
           href="/"
           className="flex items-center gap-1 text-grey-500 text-base"
@@ -29,7 +29,7 @@ const CartPage = () => {
       {!items.length ? (
         <EmptyState />
       ) : (
-        <div className="grid px-6 py-8 gap-8 md:px-32 md:py-12 md:gap-12">
+        <div className="grid px-6 py-8 gap-8 md:px-0 md:py-12 md:gap-12">
           <div className="grid gap-3">
             <Typography
               variant="h1"
